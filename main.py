@@ -1,15 +1,10 @@
-import mechanize
-from bs4 import BeautifulSoup
+#!/usr/bin/env python3
+# coding:utf-8
 
-def view_page(url):
-    browser = mechanize.Browser
-    # browser.set_handle_robots(False)
-    user_agent = [("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15")]
-    browser.addheaders = user_agent
-    browser.set_proxies({"https": "195.252.219.139:8080"})
-    page = browser.open(url)
-    for cookie in browser.cookiejar:
-        print(cookie)
-    print(page.read())
-    
-view_page("https://sleyter.fr")      
+import web_scanner
+
+# ws = web_scanner.WebScanner("http://192.168.0.47/mutillidae/index.php?page=user-info.php")
+# ws.check_xss_link()
+ws = web_scanner.WebScanner("http://192.168.0.47/dvwa/login.php")
+ws.get_login_session({"username":"admin","password":"password","Login":"Login"})
+print(ws.get_page_source("http://192.168.0.47/dvwa/"))
