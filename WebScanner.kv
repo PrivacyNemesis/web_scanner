@@ -1,0 +1,29 @@
+
+<Menu@BoxLayout>:
+    orientation: 'vertical'
+    Button:
+        text: 'Layouts'
+        on_press: app.manager.push('Scan de Vulnérabilités Web')
+
+    Button:
+        text: 'Widgets'
+        on_press: app.manager.push('Offensive Web')
+
+
+
+<ScreenManager>:
+    Screen:
+        name: 'Menu'
+        Menu:
+
+    Screen:
+        name: 'Scan de Vulnérabilités Web'
+        BoxLayoutWithActionbar:
+            title: 'Scan de Vulnérabilités Web'
+            ScannerWeb:
+
+    Screen:
+        name: 'Offensive Web'
+        BoxLayoutWithActionbar:
+            title: 'Offensive Web'
+            OffensiveWeb:
