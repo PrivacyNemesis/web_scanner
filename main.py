@@ -1,24 +1,15 @@
-from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 import requests
 import mechanize
 
-class ScreenManager(BoxLayout):
-    pass
-
-class WebScannerApp(App):
-    manager = ObjectProperty(None)
-    
-    def build(self):
-        self.manager = ScreenManager()
-        return self.manager
+def my_ip():
+    session = HTMLSession()
+    ip_url = "https://www.mon-ip.com/info-adresse-ip.php"
+    response = session.get(ip_url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    ip = soup.find('span', {'id': 'ip4'}).text
+    print(f"Votre adresse IP est {ip}")
 
 def get_proxy():
     free_proxy_url = "https://free-proxy-list.net/anonymous-proxy.html"
@@ -29,6 +20,7 @@ def get_proxy():
         proxy_table = soup.find('table', {'class': 'table table-striped table-bordered'})
 
         if proxy_table:
+            print("====================== LISTE DE PROXY DISPONIBLES: ======================")
             rows = proxy_table.find_all('tr')[1:]
             for row in rows:
                 columns = row.find_all('td')
@@ -45,7 +37,9 @@ def get_proxy():
     else:
         print("Echec de la requête vers free-proxy-list.net")
 
+my_ip()
+get_proxy()        
 
 
 
-WebScannerApp().run
+
