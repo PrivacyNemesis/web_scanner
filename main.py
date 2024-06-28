@@ -69,6 +69,6 @@ def target(url,):
     # print(page.read())
 
 
-target("https://cyberini.com")
+target("https://sleyter.fr")
 
 
